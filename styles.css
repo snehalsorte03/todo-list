@@ -10,6 +10,28 @@ body {
     color: white;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .container {
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
@@ -17,6 +39,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     color: #333;
+    animation: slideIn 0.8s ease-out;
 }
 
 h1 {
@@ -44,10 +67,12 @@ h1 {
     border: none;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #add-btn:hover {
     background-color: #218838;
+    transform: scale(1.05);
 }
 
 ul {
@@ -61,6 +86,8 @@ li {
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    animation: fadeIn 0.5s ease-in;
+    transition: all 0.3s ease;
 }
 
 li.completed {
@@ -79,10 +106,12 @@ li.completed {
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .delete-btn:hover {
     background-color: #c82333;
+    transform: scale(1.05);
 }
 
 #status {

@@ -9,6 +9,7 @@ A simple, interactive todo list web application built with HTML, CSS, and JavaSc
 - Delete tasks
 - Persistent storage: tasks are saved locally and persist after page refresh
 - Status display: shows total, completed, and remaining tasks
+- Smooth animations: fade-in effects for new tasks, transitions for state changes, and hover effects
 - Clean and responsive design
 
 ## How to Run
