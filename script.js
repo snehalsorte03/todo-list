@@ -14,6 +14,58 @@ document.addEventListener('DOMContentLoaded', function() {
     loadTasks();
     updateStatus();
 
+    const clearCompletedBtn = document.getElementById('clear-completed');
+    const exportBtn = document.getElementById('export');
+    const importBtn = document.getElementById('import');
+    const themeToggleBtn = document.getElementById('theme-toggle');
+
+    clearCompletedBtn.addEventListener('click', () => {
+        const completedLis = todoList.querySelectorAll('li.completed');
+        completedLis.forEach(li => li.remove());
+        saveTasks();
+    });
+
+    exportBtn.addEventListener('click', () => {
+        const tasks = JSON.parse(localStorage.getItem('todos')) || [];
+        const dataStr = JSON.stringify(tasks, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'todo-list.json';
+        link.click();
+        URL.revokeObjectURL(url);
+    });
+
+    importBtn.addEventListener('click', () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const tasks = JSON.parse(e.target.result);
+                        localStorage.setItem('todos', JSON.stringify(tasks));
+                        todoList.innerHTML = '';
+                        loadTasks();
+                    } catch (err) {
+                        alert('Invalid JSON file');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        };
+        input.click();
+    });
+
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        themeToggleBtn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+    });
+
     function addTodo() {
         const todoText = todoInput.value.trim();
         if (todoText === '') return;
